@@ -1,0 +1,43 @@
+export default {
+    'views.article.edit.header.title': 'Article Edit',
+    'views.article.edit.base.title': 'Basic Information',
+    'views.article.edit.pic.title': 'Thumbnail',
+    'views.article.edit.pic.tips': 'Choose up to 4 pictures, please upload the processed thumbnails',
+    'views.article.edit.content.title': 'Details',
+
+    'views.article.edit.articlerec.title': 'Recommended article',
+    'views.article.edit.articlerec.tips': 'Select up to 10 article',
+    'views.article.edit.articlerec.btn.show': 'New recommendation',
+    'views.article.edit.articlerec.btn.del': 'Remove',
+    'views.article.edit.articlerec.table.column.index': 'Order',
+    'views.article.edit.articlerec.table.column.id': 'ID',
+    'views.article.edit.articlerec.table.column.title': 'Title',
+    'views.article.edit.articlerec.table.column.addtime': 'Release time',
+    'views.article.edit.articlerec.table.column.action': 'Action',
+    'views.article.edit.articlerec.drawer.title': 'Choose recommended article',
+    'views.article.edit.articlerec.drawer.action': 'Action',
+    'views.article.edit.articlerec.drawer.btn1': 'chosen',
+    'views.article.edit.articlerec.drawer.btn2': 'choose',
+    'views.article.edit.articlerec.choose.success': 'The choice is successful!',
+
+    'views.article.edit.form.title': 'Title',
+    'views.article.edit.form.title.placeholder': 'Please enter a title',
+    'views.article.edit.form.title.minmax': '5 to 100 characters long',
+    'views.article.edit.form.category': 'Category',
+    'views.article.edit.form.category.placeholder': 'please select a Category',
+    'views.article.edit.form.addtime': 'Release time',
+    'views.article.edit.form.addtime.placeholder': 'Please select a date',
+    'views.article.edit.form.keywords': 'Keywords',
+    'views.article.edit.form.keywords.placeholder': 'Please enter Keywords',
+    'views.article.edit.form.keywords.minmax': '2 to 50 characters in length',
+    'views.article.edit.form.description': 'Description',
+    'views.article.edit.form.description.placeholder': 'Please enter Description',
+    'views.article.edit.form.description.minmax': '10 to 200 words in length',
+    'views.article.edit.form.tag': 'Tag',
+    'views.article.edit.form.tag.placeholder': 'Please search and select',
+    'views.article.edit.form.btn.submit': 'Submit',    
+
+    'views.article.edit.submit.confirm.msg': 'Successfully modified!',
+
+    
+};

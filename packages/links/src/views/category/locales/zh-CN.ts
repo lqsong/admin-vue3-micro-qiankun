@@ -1,0 +1,31 @@
+export default {
+    'views.links.category.button.add': '新增',
+    'views.links.category.table.column.index': '序号',
+    'views.links.category.table.column.name': '名称',
+    'views.links.category.table.column.alias': '别名',
+    'views.links.category.table.column.sort': '排序',
+    'views.links.category.table.column.action': '操作',
+    'views.links.category.table.column.action.buttion.edit': '修改',
+    'views.links.category.table.column.action.buttion.del': '删除',
+    'views.links.category.table.column.action.buttion.del.popconfirm': '是否确认删除?',
+    'views.links.category.table.column.action.buttion.del.success': '删除成功！',
+
+    'views.links.category.components.formdialog.add.title': '新增分类',
+    'views.links.category.components.formdialog.edit.title': '修改分类',
+    'views.links.category.components.formdialog.name': '分类名称',
+    'views.links.category.components.formdialog.name.placeholder': '请输入分类名称',
+    'views.links.category.components.formdialog.name.test': '不能有英文格式的 ","',
+    'views.links.category.components.formdialog.name.max': '最长 10 个字',
+    'views.links.category.components.formdialog.alias': '分类别名',
+    'views.links.category.components.formdialog.alias.placeholder': '请输入分类别名',
+    'views.links.category.components.formdialog.alias.test': '必须是小写字母',
+    'views.links.category.components.formdialog.alias.max': '最长 50 个字符',
+    'views.links.category.components.formdialog.sort': '排序',
+    'views.links.category.components.formdialog.sort.placeholder': '请输入排序',
+    'views.links.category.components.formdialog.btn.save': '保存',
+    'views.links.category.components.formdialog.btn.cancel': '取消',
+    'views.links.category.components.formdialog.addsuccess': '新增成功！',
+    'views.links.category.components.formdialog.editsuccess': '修改成功！',
+
+
+};

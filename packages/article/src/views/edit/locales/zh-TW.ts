@@ -1,0 +1,43 @@
+export default {
+    'views.article.edit.header.title': '隨筆修改',
+    'views.article.edit.base.title': '基本信息',
+    'views.article.edit.pic.title': '縮略圖',
+    'views.article.edit.pic.tips': '最多選擇 4 張圖片，請上傳處理好的縮略圖',
+    'views.article.edit.content.title': '詳細內容',
+
+    'views.article.edit.articlerec.title': '推薦隨筆',
+    'views.article.edit.articlerec.tips': '最多選擇 10 條隨筆',
+    'views.article.edit.articlerec.btn.show': '新增推薦',
+    'views.article.edit.articlerec.btn.del': '移除',
+    'views.article.edit.articlerec.table.column.index': '序號',
+    'views.article.edit.articlerec.table.column.id': 'ID',
+    'views.article.edit.articlerec.table.column.title': '標題',
+    'views.article.edit.articlerec.table.column.addtime': '發布時間',
+    'views.article.edit.articlerec.table.column.action': '操作',
+    'views.article.edit.articlerec.drawer.title': '選擇推薦的隨筆',
+    'views.article.edit.articlerec.drawer.action': '操作',
+    'views.article.edit.articlerec.drawer.btn1': '已選擇',
+    'views.article.edit.articlerec.drawer.btn2': '選擇',
+    'views.article.edit.articlerec.choose.success': '選擇成功！',
+
+    'views.article.edit.form.title': '標題',
+    'views.article.edit.form.title.placeholder': '請輸入標題',
+    'views.article.edit.form.title.minmax': '長度在 5 到 100 個字',
+    'views.article.edit.form.category': '分類',
+    'views.article.edit.form.category.placeholder': '請選擇分類',
+    'views.article.edit.form.addtime': '發布時間',
+    'views.article.edit.form.addtime.placeholder': '請選擇日期',
+    'views.article.edit.form.keywords': 'Keywords',
+    'views.article.edit.form.keywords.placeholder': '請輸入Keywords',
+    'views.article.edit.form.keywords.minmax': '長度在 2 到 50 個字',
+    'views.article.edit.form.description': 'Description',
+    'views.article.edit.form.description.placeholder': '請輸入Description',
+    'views.article.edit.form.description.minmax': '長度在 10 到 200 個字',
+    'views.article.edit.form.tag': '標簽',
+    'views.article.edit.form.tag.placeholder': '請搜索選擇',
+    'views.article.edit.form.btn.submit': '提交',    
+
+    'views.article.edit.submit.confirm.msg': '修改成功!',
+
+    
+};

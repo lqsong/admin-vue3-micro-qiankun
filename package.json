@@ -1,0 +1,69 @@
+{
+  "name": "admin-vue3-micro-qiankun",
+  "description": "Micro front-end Admin based on Qiankun, vue3.x, admin-element-vue, admin-antd-vue project architecture",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "components/*",
+    "main",
+    "main-antd"
+  ],
+  "scripts": {
+    "serve": "set NODE_ENV=development&&gulp --require sucrase/register/ts -f scripts/gulpserve.ts",
+    "serve:main": "pnpm run -C main serve",
+    "serve:main-antd": "pnpm run -C main-antd serve",
+    "serve:system": "pnpm run serve -C packages/system",
+    "serve:article": "pnpm run serve -C packages/article",
+    "serve:links": "pnpm run serve -C packages/links",
+    "clean": "pnpm run clean:dist -r --stream",
+    "clean:dist": "rimraf dist",
+    "build": "set NODE_ENV=production&&gulp --require sucrase/register/ts -f scripts/gulpbuild.ts",
+    "build:main": "pnpm run -C main build",
+    "build:main-antd": "pnpm run -C main-antd build",
+    "build:system": "pnpm run build -C packages/system",
+    "build:article": "pnpm run build -C packages/article",
+    "build:links": "pnpm run build -C packages/links",
+    "preinstall": "npx only-allow pnpm -y"
+  },
+  "peerDependencies": {
+    "qiankun": "^2.6.3"
+  },
+  "dependencies": {
+    "qiankun": "^2.6.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/gulp": "^4.0.9",
+    "chalk": "4.1.2",
+    "dotenv": "^11.0.0",
+    "dotenv-expand": "^5.1.0",
+    "fs-extra": "^10.0.0",
+    "gulp": "^4.0.2",
+    "rimraf": "^3.0.2",
+    "sucrase": "^3.20.3",
+    "typescript": "^4.5.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lqsong/admin-vue3-micro-qiankun.git"
+  },
+  "keywords": [
+    "vue3",
+    "micro-app",
+    "admin-element-vue",
+    "element-plus",
+    "admin-antd-vue",
+    "antdv",
+    "antd",
+    "admin",
+    "typescript",
+    "pnpm"
+  ],
+  "author": "LiQingSong<957698457@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lqsong/admin-vue3-micro-qiankun/issues"
+  },
+  "homepage": "https://github.com/lqsong/admin-vue3-micro-qiankun#readme"
+
+}
