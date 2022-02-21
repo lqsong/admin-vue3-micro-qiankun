@@ -1,0 +1,62 @@
+{
+  "name": "admin-element-vue3-micro",
+  "description": "Micro frontend based on admin-element-vue project architecture",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "main",
+    "main-test"
+  ],
+  "scripts": {
+    "serve": "set NODE_ENV=development&&gulp --require sucrase/register/ts -f scripts/gulpserve.ts",
+    "serve:main": "pnpm run -C main serve",
+    "serve:main-test": "pnpm run -C main-test serve",
+    "serve:world": "pnpm run serve -C packages/hello-world",
+    "serve:china": "pnpm run serve -C packages/hello-china",
+    "clean": "pnpm run clean:dist -r --stream",
+    "clean:dist": "rimraf dist",
+    "build": "set NODE_ENV=production&&gulp --require sucrase/register/ts -f scripts/gulpbuild.ts",
+    "build:main": "pnpm run -C main build",
+    "build:main-test": "pnpm run -C main-test build",
+    "build:world": "pnpm run build -C packages/hello-world",
+    "build:china": "pnpm run build -C packages/hello-china",
+    "preinstall": "npx only-allow pnpm -y"
+  },
+  "peerDependencies": {
+    "qiankun": "^2.6.3"
+  },
+  "dependencies": {
+    "qiankun": "^2.6.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/gulp": "^4.0.9",
+    "chalk": "4.1.2",
+    "dotenv": "^11.0.0",
+    "dotenv-expand": "^5.1.0",
+    "fs-extra": "^10.0.0",
+    "gulp": "^4.0.2",
+    "rimraf": "^3.0.2",
+    "sucrase": "^3.20.3",
+    "typescript": "^4.5.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lqsong/admin-element-vue3-micro.git"
+  },
+  "keywords": [
+    "vue3",
+    "micro-app",
+    "admin-element-vue",
+    "element-plus",
+    "typescript",
+    "pnpm"
+  ],
+  "author": "LiQingSong<957698457@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lqsong/admin-element-vue3-micro/issues"
+  },
+  "homepage": "https://github.com/lqsong/admin-element-vue3-micro#readme"
+
+}
