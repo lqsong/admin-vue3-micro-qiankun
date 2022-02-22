@@ -4,7 +4,7 @@
       placement="bottomRight"
     >
 
-      <icon-svg class="qiankunlayout-top-settings" type="theme"></icon-svg>
+      <span class="qiankunlayout-top-settings"><icon-svg type="theme"></icon-svg></span>
 
       <template #content>
         <div class="setting">

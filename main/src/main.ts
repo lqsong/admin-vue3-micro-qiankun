@@ -25,7 +25,7 @@ app.provide('childProjectEntry', childProjectEntry);
 app.provide('qiankunActions', actions);
 app.use(store);
 app.use(router)
-app.use(ElementPlus, { size: 'small'});
+app.use(ElementPlus);
 app.use(i18n);
 app.mount('#app');
 

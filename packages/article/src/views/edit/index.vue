@@ -300,13 +300,13 @@
                 v-if="articleRecIds.includes(scope.row.id)"
                 disabled
                 type="info"
-                size="mini">
+                size="small">
                 {{t('views.article.edit.articlerec.drawer.btn1')}}
               </el-button>
               <el-button
                 v-else
                 type="primary"
-                size="mini"
+                size="small"
                 @click="articleRec.selectArticle(scope.row)">
                 {{t('views.article.edit.articlerec.drawer.btn2')}}
               </el-button>

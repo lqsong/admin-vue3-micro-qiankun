@@ -101,7 +101,7 @@
         height: calc(var(--qkl-header-height) + var(--qkl-header-tab-nav-height));
         box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
         background-color: var(--qkl-main-bg-color);
-        z-index: 1;
+        z-index: 2;
 
         .qiankunlayout-right-top-top {
           display: flex;
@@ -151,10 +151,12 @@
             .qiankunlayout-top-usermenu {
               padding-left: 10px;
               color: var(--qkl-color);
+              line-height: var(--qkl-header-height);
             }
 
             .qiankunlayout-top-selectlang {
               padding-left: 15px;
+              line-height: var(--qkl-header-height);
               .dropDown {
                 i,
                 .svg-icon {

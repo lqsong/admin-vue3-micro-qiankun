@@ -189,7 +189,7 @@
             prop="roles"
             min-width="330">
              <template #default="{row}">
-                 <el-tag v-for="(item,index) in row.roles" :key="index" size="mini" class="margin-r5">{{item.name}}</el-tag>
+                 <el-tag v-for="(item,index) in row.roles" :key="index" size="small" class="margin-r5">{{item.name}}</el-tag>
              </template>
         </el-table-column>
 

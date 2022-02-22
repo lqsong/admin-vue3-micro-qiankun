@@ -223,21 +223,21 @@
         <template #default="{ node, data }">
             <el-button
                 type="text"
-                size="mini"
+                size="small"
                 @click.stop="addFormShow(node)"
                 >
                 {{t('views.system.menulist.table.column.action.buttion.add')}}
             </el-button>
             <el-button
                 type="text"
-                size="mini"
+                size="small"
                 @click.stop="editFormShow(node)"
                 >
                 {{t('views.system.menulist.table.column.action.buttion.edit')}}
             </el-button>
             <el-popconfirm :title="t('views.system.menulist.table.column.action.buttion.del.popconfirm')" @confirm="handleDelete(node)">
                 <template #reference>
-                    <el-button type="text" size="mini" :loading="data.delLoading">{{t('views.system.menulist.table.column.action.buttion.del')}}</el-button>
+                    <el-button type="text" size="small" :loading="data.delLoading">{{t('views.system.menulist.table.column.action.buttion.del')}}</el-button>
                 </template>
             </el-popconfirm>
         </template>

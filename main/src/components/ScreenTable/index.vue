@@ -1,13 +1,13 @@
 <template>
     <div class="main-conent-screen">
-     
+
         <div v-if="$slots.header" class="screen-header"><slot name="header"></slot></div>
         <div v-else class="screen-padding" />
 
         <div class="screen-conent" ref="conentRef">
             <el-table
-                :height="tableHeight"                
-                :row-key="rowKey"               
+                :height="tableHeight"
+                :row-key="rowKey"
                 :data="data"
                 v-loading="loading"
                 :show-header="showHeader"
@@ -91,8 +91,8 @@ export default defineComponent({
         const tableHeight = ref<number>(200);
 
         const resizeHandler = debounce(() => {
-            if (conentRef.value) {           
-                tableHeight.value = conentRef.value.offsetHeight;            
+            if (conentRef.value) {
+                tableHeight.value = conentRef.value.offsetHeight;
             }
         }, 100);
 
@@ -135,6 +135,9 @@ export default defineComponent({
     flex: 1;
     padding: 0 20px;
     overflow: hidden;
+    ::v-deep(.el-pagination) {
+      justify-content: flex-end;
+    }
   }
   .screen-padding {
     padding-top: 20px;

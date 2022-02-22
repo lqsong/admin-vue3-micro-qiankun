@@ -108,7 +108,7 @@ export default defineComponent({
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M406.656 706.944 195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z"></path></svg>
                 </i>
               </label>
-              
+
               <span class="el-upload-list__item-actions">
                 <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(item)">
                   <icon-svg type="zoom-in"></icon-svg>
@@ -117,9 +117,9 @@ export default defineComponent({
                   <icon-svg type="delete"></icon-svg>
                 </span>
               </span>
-            </li>               
+            </li>
 
-        
+
           </ul>
 
           <div v-if="valueLen < limit" class="el-upload el-upload--picture-card" @click="dialogVisible=true">
@@ -141,10 +141,10 @@ export default defineComponent({
                         <template #default="scope">
                             <el-button
                                 type="primary"
-                                size="mini"
+                                size="small"
                                 @click="selectData(scope.row)">
                                 {{t('components.custom.serverimage.selectionlist.dialog.table.btn.choose')}}
-                            </el-button>                     
+                            </el-button>
                         </template>
                     </el-table-column>
                 </template>

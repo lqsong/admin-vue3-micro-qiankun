@@ -5,7 +5,6 @@
         </template>
 
         <el-table
-          size="small"
           row-key="id"
           header-row-class-name="custom-table-header"
           stripe

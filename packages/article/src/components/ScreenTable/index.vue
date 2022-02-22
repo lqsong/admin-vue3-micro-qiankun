@@ -132,6 +132,9 @@ export default defineComponent({
     padding: 20px;
     min-height: 32px;
     text-align: right;
+    ::v-deep(.el-pagination) {
+      justify-content: flex-end;
+    }
   }
   .screen-conent {
     flex: 1;

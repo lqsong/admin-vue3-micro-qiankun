@@ -6,7 +6,7 @@
 import { ColumnItem } from './data.d';
 import debounce from "lodash.debounce";
 import { ElTree } from "element-plus";
-import scrollbarWidth from 'element-plus/lib/utils/scrollbar-width';
+import { getScrollBarWidth } from 'element-plus/lib/utils/dom/scroll';
 import { TreeData, TreeOptionProps, LoadFunction, TreeKey } from 'element-plus/es/components/tree/src/tree.type';
 import Node from "element-plus/es/components/tree/src/model/node";
 import { computed, defineComponent, PropType, ref, reactive, onMounted, onBeforeUnmount, ComponentInternalInstance } from "vue";
@@ -161,7 +161,7 @@ export default defineComponent({
     // treeTable mainBox 是否有滚动条
     const treeTableMainIsScroll = computed<boolean>(() => treeTable.mainIsScroll);
     // treeTable mainBox 滚动条宽度
-    const treeTableMainScrollbarWidth = computed<number>(()=> scrollbarWidth() + 1);
+    const treeTableMainScrollbarWidth = computed<number>(()=> getScrollBarWidth() + 1);
 
     // 设置tree mainBox 是否有滚动条
     const setTreeTableMainIsScroll = () => {
@@ -290,17 +290,17 @@ export default defineComponent({
                                 <slot :node="node" :data="data">
                                     <!-- <el-button
                                         type="text"
-                                        size="mini"
+                                        size="small"
                                         @click="() => append(data)">
                                         添加下级
                                     </el-button>
                                     <el-button
                                         type="text"
-                                        size="mini"
+                                        size="small"
                                         @click="() => remove(node, data)">
                                         删除
                                     </el-button> -->
-                                    <el-button type="text" size="mini">请添加内容，否则请禁用</el-button>
+                                    <el-button type="text" size="small">请添加内容，否则请禁用</el-button>
                                 </slot>
                             </div>
                         </span>
@@ -330,7 +330,7 @@ export default defineComponent({
         .tree-table-header-th {
             display: table-cell;
             box-sizing: border-box;
-            padding: 8px 0;
+            padding: 4px 0;
             border-right: 1px solid #EBEEF5;
             .cell{
                 display: inline-block;

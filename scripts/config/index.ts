@@ -36,7 +36,7 @@ export interface ChildProjectConfigItem {
 
 export const mainProjectConfig: Record<string, MainProjectConfigItem> = {
   'main': {
-    buildChildParentName: process.env.MICRO_BUILD_CHILD_NAME,
+    buildChildParentName: process.env.MICRO_BUILD_CHILD_NAME || '',
     rootDir: 'main',
     outputDir: 'dist',
     serveRun: 'serve:main',
@@ -48,7 +48,7 @@ export const mainProjectConfig: Record<string, MainProjectConfigItem> = {
     ]
   },
   'main-antd': {
-    buildChildParentName: process.env.MICRO_BUILD_CHILD_NAME,
+    buildChildParentName: process.env.MICRO_BUILD_CHILD_NAME || '',
     rootDir: 'main-antd',
     outputDir: 'dist',
     serveRun: 'serve:main-antd',
@@ -63,25 +63,25 @@ export const mainProjectConfig: Record<string, MainProjectConfigItem> = {
 
 export const childProjectConfig: Record<string, ChildProjectConfigItem> = {
   'system': {
-    rootDir: process.env.MICRO_SYSTEM_ROOT_DIR,
+    rootDir: process.env.MICRO_SYSTEM_ROOT_DIR || '',
     outputDir: 'dist',
-    host: process.env.MICRO_SYSTEM_HOST,
+    host: process.env.MICRO_SYSTEM_HOST || '',
     port: Number(process.env.MICRO_SYSTEM_PORT || 0),
     serveRun: 'serve:system',
     buildRun: 'build:system'
   },
   'article': {
-    rootDir: process.env.MICRO_ARTICLE_ROOT_DIR,
+    rootDir: process.env.MICRO_ARTICLE_ROOT_DIR || '',
     outputDir: 'dist',
-    host: process.env.MICRO_ARTICLE_HOST,
+    host: process.env.MICRO_ARTICLE_HOST || '',
     port: Number(process.env.MICRO_ARTICLE_PORT || 0),
     serveRun: 'serve:article',
     buildRun: 'build:article'
   },
   'links': {
-    rootDir: process.env.MICRO_LINKS_ROOT_DIR,
+    rootDir: process.env.MICRO_LINKS_ROOT_DIR || '',
     outputDir: 'dist',
-    host: process.env.MICRO_LINKS_HOST,
+    host: process.env.MICRO_LINKS_HOST || '',
     port: Number(process.env.MICRO_LINKS_PORT || 0),
     serveRun: 'serve:links',
     buildRun: 'build:links'

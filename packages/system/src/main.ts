@@ -76,7 +76,7 @@ function render(props: any = {}) {
   instance.provide('parentStore', parentStore || store);
   instance.use(store);
   instance.use(router);
-  instance.use(ElementPlus, { size: 'small'});
+  instance.use(ElementPlus);
   instance.use(i18n);
   instance.mount(container ? container.querySelector('#app') : '#app');
 

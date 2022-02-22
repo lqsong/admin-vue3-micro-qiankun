@@ -4,56 +4,55 @@
       :width="200"
     >
       <template #reference>
-        <icon-svg class="qiankunlayout-top-settings" type="theme"></icon-svg>
+        <span class="qiankunlayout-top-settings"><icon-svg type="theme"></icon-svg></span>
       </template>
-      <template #default>
-        <div class="setting">
-          <div class="setting-title">页面风格</div>
-          <div class="setting-radio">
-            <div class="setting-radio-item style-dark" title="dark" @click="setTheme('dark')">
-              <icon-svg v-if="theme==='dark'" class="choose-icon" type="tick"></icon-svg>
-            </div>
-            <div class="setting-radio-item style-light" title="light" @click="setTheme('light')">
-              <icon-svg v-if="theme==='light'" class="choose-icon" type="tick"></icon-svg>
-            </div>
+
+      <div class="setting">
+        <div class="setting-title">页面风格</div>
+        <div class="setting-radio">
+          <div class="setting-radio-item style-dark" title="dark" @click="setTheme('dark')">
+            <icon-svg v-if="theme==='dark'" class="choose-icon" type="tick"></icon-svg>
           </div>
-
-          <el-divider style="margin: 10px 0;"></el-divider>
-
-          <div class="setting-title">导航模式</div>
-          <div class="setting-radio">
-            <div class="setting-radio-item nav-vertical" title="vertical" @click="setNavMode('vertical')">
-              <icon-svg v-if="navMode==='vertical'" class="choose-icon" type="tick"></icon-svg>
-            </div>
-            <div class="setting-radio-item nav-horizontal" title="horizontal" @click="setNavMode('horizontal')">
-              <icon-svg v-if="navMode==='horizontal'" class="choose-icon" type="tick"></icon-svg>
-            </div>
-          </div>
-
-          <el-divider style="margin: 10px 0;"></el-divider>
-
-          <div class="setting-list">
-            <div class="setting-list-item">
-              <span>固定头部</span>
-              <span class="setting-list-item-action">
-                <el-switch v-model="headFixed" size="small" />
-              </span>
-            </div>
-            <div class="setting-list-item">
-              <span>TabNav</span>
-              <span class="setting-list-item-action">
-                <el-switch v-model="tabNavEnable" size="small" />
-              </span>
-            </div>
-            <div class="setting-list-item">
-              <span>固定侧边</span>
-              <span class="setting-list-item-action">
-                <el-switch v-model="leftSiderFixed" size="small" />
-              </span>
-            </div>
+          <div class="setting-radio-item style-light" title="light" @click="setTheme('light')">
+            <icon-svg v-if="theme==='light'" class="choose-icon" type="tick"></icon-svg>
           </div>
         </div>
-      </template>
+
+        <el-divider style="margin: 10px 0;"></el-divider>
+
+        <div class="setting-title">导航模式</div>
+        <div class="setting-radio">
+          <div class="setting-radio-item nav-vertical" title="vertical" @click="setNavMode('vertical')">
+            <icon-svg v-if="navMode==='vertical'" class="choose-icon" type="tick"></icon-svg>
+          </div>
+          <div class="setting-radio-item nav-horizontal" title="horizontal" @click="setNavMode('horizontal')">
+            <icon-svg v-if="navMode==='horizontal'" class="choose-icon" type="tick"></icon-svg>
+          </div>
+        </div>
+
+        <el-divider style="margin: 10px 0;"></el-divider>
+
+        <div class="setting-list">
+          <div class="setting-list-item">
+            <span>固定头部</span>
+            <span class="setting-list-item-action">
+              <el-switch v-model="headFixed" size="small" />
+            </span>
+          </div>
+          <div class="setting-list-item">
+            <span>TabNav</span>
+            <span class="setting-list-item-action">
+              <el-switch v-model="tabNavEnable" size="small" />
+            </span>
+          </div>
+          <div class="setting-list-item">
+            <span>固定侧边</span>
+            <span class="setting-list-item-action">
+              <el-switch v-model="leftSiderFixed" size="small" />
+            </span>
+          </div>
+        </div>
+      </div>
     </el-popover>
 </template>
 <script lang="ts" setup>
