@@ -56,10 +56,41 @@
     </el-popover>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from "vuex"
+import localforage from 'localforage'
 import { StateType as GlobalStateType } from '@/store/global'
 import IconSvg from "@/components/IconSvg"
+
+const THEME_LOCAL_KEY = 'theme'
+const NAVMODE_LOCAL_KEY = 'navmode'
+
+const getThemeLocal = async (): Promise<string | null> => {
+  return await localforage.getItem(THEME_LOCAL_KEY)
+};
+
+const setThemeLocal = async (val: string): Promise<boolean> => {
+  try {
+    await localforage.setItem(THEME_LOCAL_KEY, val);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+const getNavModeLocal = async (): Promise<string | null> => {
+  return await localforage.getItem(NAVMODE_LOCAL_KEY)
+};
+
+const setNavModeLocal = async (val: string): Promise<boolean> => {
+  try {
+    await localforage.setItem(NAVMODE_LOCAL_KEY, val);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 
 const store = useStore<{global: GlobalStateType;}>();
 
@@ -67,12 +98,14 @@ const store = useStore<{global: GlobalStateType;}>();
 const theme = computed(()=> store.state.global.theme);
 const setTheme = (value: string): void => {
   store.commit('global/setTheme', value);
+  setThemeLocal(value);
 }
 
 // 导航模式
 const navMode = computed(()=> store.state.global.navMode);
 const setNavMode = (value: string): void => {
   store.commit('global/setNavMode', value);
+  setNavModeLocal(value);
 }
 
 // 头部是否固定
@@ -97,6 +130,21 @@ const leftSiderFixed = computed({
   set: value => {
     store.commit('global/setLeftSiderFixed', value);
   }
+})
+
+
+const getLocalData = async () => {
+  const local_theme = await getThemeLocal()
+  const local_nav_mode = await getNavModeLocal()
+  if(local_theme) {
+    store.commit('global/setTheme', local_theme);
+  }
+  if(local_nav_mode) {
+    store.commit('global/setNavMode', local_nav_mode);
+  }
+}
+onMounted(()=> {
+  getLocalData()
 })
 
 
