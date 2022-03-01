@@ -89,12 +89,12 @@ const handleSubmit = async () => {
             if (res === true) {
                 ElMessage.success(t('page.user.login.form.login-success'));
                 const { redirect, ...query } = currentRoute.value.query;
-                router.replace({
+                window.location.href = router.resolve({
                     path: redirect as string || '/',
                     query: {
                         ...query
                     }
-                });
+                }).href;
             }
         }
     } catch (error) {
