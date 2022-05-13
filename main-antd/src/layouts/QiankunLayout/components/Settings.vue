@@ -149,7 +149,7 @@ onMounted(()=> {
 
 
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .setting {
   padding: 0 10px;
 

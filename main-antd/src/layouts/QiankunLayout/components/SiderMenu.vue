@@ -33,9 +33,9 @@ const selectedKeys = computed<string[]>(()=>{
 });
 
 // 左侧展开菜单keys
-const openKeys = ref<string[]>(routeItem.value.parentPath || []);
+const openKeys = ref<string[]>(mode.value === 'inline'? routeItem.value.parentPath || []: []);
 watch([collapsed],()=>{
-  if (!collapsed.value) {
+  if (!collapsed.value && mode.value === 'inline') {
     openKeys.value = ArrayMergeUnique<string>(openKeys.value, routeItem.value.parentPath || []);
   } else {
     nextTick(()=> {
