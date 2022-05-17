@@ -179,6 +179,7 @@
         ref="tableRef"
         v-loading="tableProp.loading"
         :operation-text="t('views.system.apilist.table.column.action')"
+        :operation-width="300"
         :column="tableProp.column"
         node-key="id"
         :lazy="true"
@@ -193,14 +194,12 @@
         </template>
         <template #default="{ node, data }">
             <el-button
-                type="text"
                 size="small"
                 @click.stop="addFormShow(node)"
                 >
                 {{t('views.system.apilist.table.column.action.buttion.add')}}
             </el-button>
             <el-button
-                type="text"
                 size="small"
                 @click.stop="editFormShow(node)"
                 >
@@ -208,7 +207,7 @@
             </el-button>
             <el-popconfirm :title="t('views.system.apilist.table.column.action.buttion.del.popconfirm')" @confirm="handleDelete(node)">
                 <template #reference>
-                    <el-button type="text" size="small" :loading="data.delLoading">{{t('views.system.apilist.table.column.action.buttion.del')}}</el-button>
+                    <el-button size="small" :loading="data.delLoading">{{t('views.system.apilist.table.column.action.buttion.del')}}</el-button>
                 </template>
             </el-popconfirm>
         </template>

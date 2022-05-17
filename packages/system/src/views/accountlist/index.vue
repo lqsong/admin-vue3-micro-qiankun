@@ -197,13 +197,13 @@
         <el-table-column
             :label="t('views.system.accountlist.table.column.action')"
             prop="action"
-            width="120">
+            width="150">
             <template #default="{row,$index}">
-                <el-button type="text" @click="editFormShow(row)">{{t('views.system.accountlist.table.column.action.buttion.edit')}}</el-button>
+                <el-button @click="editFormShow(row)">{{t('views.system.accountlist.table.column.action.buttion.edit')}}</el-button>
 
                 <el-popconfirm :title="t('views.system.accountlist.table.column.action.buttion.del.popconfirm')" @confirm="handleDelete($index, row)">
                     <template #reference>
-                        <el-button type="text" :loading="row.delLoading" >{{t('views.system.accountlist.table.column.action.buttion.del')}}</el-button>
+                        <el-button :loading="row.delLoading" >{{t('views.system.accountlist.table.column.action.buttion.del')}}</el-button>
                     </template>
                 </el-popconfirm>
             </template>

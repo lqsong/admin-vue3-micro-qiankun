@@ -17,18 +17,13 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref, reactive, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import { EChartOption } from 'echarts';
-import useEcharts from '@/composables/useEcharts';
+import useEcharts, { EChartsOption } from '@/composables/useEcharts';
 import { LinksChartDataType, ChartDataType } from "./data.d";
 import { ResponseData } from '@/utils/request';
 import { annualnewLinks } from "./service";
 
-const linksChartOption: EChartOption = {
+const linksChartOption: EChartsOption = {
   tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      type: 'shadow',
-    },
   },
   grid: {
     left: '0',
@@ -104,7 +99,7 @@ const linksChartRef = ref<HTMLDivElement>();
 const echarts = useEcharts(linksChartRef, linksChartOption);
 watch([echarts, chartData],()=> {
   if(echarts.value) {
-      const option: EChartOption = {
+      const option: EChartsOption = {
         xAxis: {
           // data: ["03-01", "03-01", "03-01", "03-01", "03-01", "03-01", "03-01"]
           data: chartData.value.day,
