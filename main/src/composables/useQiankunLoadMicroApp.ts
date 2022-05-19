@@ -2,20 +2,20 @@
  * 手动局部加载microApp  composables
  * @author LiQingSong
  */
-import { loadMicroApp, MicroApp, FrameworkConfiguration, FrameworkLifeCycles } from 'qiankun'
-import { onMounted, onUnmounted } from "vue"
-import router from '@/config/routes'
-import store from '@/config/store'
+import { onMounted, onUnmounted } from "vue";
+import router from "@/config/routes";
+import store from '@/config/store';
+import { loadMicroApp, MicroApp, FrameworkConfiguration, FrameworkLifeCycles, mainProps, MainPropsData } from "@/qiankun";
 
 export interface Props {
     name: string;
     entry: string;
     container: string;
     routerHistory?: string
-    data?: {[key:string]:any};
+    data?: MainPropsData;
 }
 
-export default function useLoadMicroApp(props: Props, configuration?: FrameworkConfiguration & {
+export default function useQiankunLoadMicroApp(props: Props, configuration?: FrameworkConfiguration & {
   autoStart?: boolean;
 }, lifeCycles?: FrameworkLifeCycles<any>): void {
 
@@ -30,13 +30,7 @@ export default function useLoadMicroApp(props: Props, configuration?: FrameworkC
             entry,
             container,
             props: {
-                routerHistory,
-                parentRouter: router,
-                parentStore: store,
-                data: {
-                    defaultPath: '',
-                    ...data
-                }
+              ...mainProps(router, store, data, routerHistory)
             },
           },
           configuration,

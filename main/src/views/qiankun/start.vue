@@ -7,7 +7,7 @@ declare global {
 export default {}
 </script>
 <script lang="ts" setup>
-import { start } from 'qiankun'
+import useQiankunStart from "@/composables/useQiankunStart"
 import { onMounted, computed } from "vue"
 import { useStore } from 'vuex'
 import { StateType as GlobalStateType } from '@/store/global'
@@ -20,7 +20,7 @@ const qiankunStartLoading = computed(()=> store.state.global.qiankunStartLoading
 onMounted(()=> {
   if (!window.__QIANKUN_STARTED__) {
     window.__QIANKUN_STARTED__ = true;
-    start();
+    useQiankunStart();
   }
 
 })

@@ -194,20 +194,20 @@
         </template>
         <template #default="{ node, data }">
             <el-button
-                size="small"
+                type="primary" size="small" text
                 @click.stop="addFormShow(node)"
                 >
                 {{t('views.system.apilist.table.column.action.buttion.add')}}
             </el-button>
             <el-button
-                size="small"
+                type="primary" size="small" text
                 @click.stop="editFormShow(node)"
                 >
                 {{t('views.system.apilist.table.column.action.buttion.edit')}}
             </el-button>
             <el-popconfirm :title="t('views.system.apilist.table.column.action.buttion.del.popconfirm')" @confirm="handleDelete(node)">
                 <template #reference>
-                    <el-button size="small" :loading="data.delLoading">{{t('views.system.apilist.table.column.action.buttion.del')}}</el-button>
+                    <el-button type="primary" size="small" text :loading="data.delLoading" @click.stop>{{t('views.system.apilist.table.column.action.buttion.del')}}</el-button>
                 </template>
             </el-popconfirm>
         </template>

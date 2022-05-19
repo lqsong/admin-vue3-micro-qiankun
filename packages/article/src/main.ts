@@ -9,8 +9,8 @@ if (window.__POWERED_BY_QIANKUN__) {
   __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ || '';
 }
 
-import { createApp } from 'vue';
-import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router';
+import { createApp, App as InstanceApp } from 'vue';
+import { createRouter, createWebHistory, createMemoryHistory, Router, RouterHistory } from 'vue-router';
 
 // 样式初始化
 import 'normalize.css';
@@ -37,14 +37,18 @@ import store from '@/config/store';
 import i18n from '@/config/i18n';
 
 
-let router: any = null;
-let instance: any = null;
-let history: any = null;
-
+let router: Router | null = null;
+let instance: InstanceApp | null = null;
+let history: RouterHistory | null = null;
+// 创建vue应用函数
 function render(props: any = {}) {
-  const { container, routerBase, routerHistory, parentRouter, parentStore, data, onGlobalStateChange } = props;
+  const { 
+    container, onGlobalStateChange, setGlobalState, routerBase, 
+    parentRouter, closeCurrentHeadTabNav, routerHistory, data 
+  } = props;
+  
+  // vue 路由设置
   const historyBase = routerBase || process.env.BASE_URL;
-
   if (routerHistory === 'memory') {
     history = createMemoryHistory(historyBase);
   } else {
@@ -54,7 +58,6 @@ function render(props: any = {}) {
     history,
     routes,
   });
-
   router.beforeEach((/* to, from */) => {
     // start progress bar
     NProgress.start();
@@ -65,55 +68,68 @@ function render(props: any = {}) {
     NProgress.done();
   });
 
-
-  if(parentStore) {
-    // 设置用户登录信息
-    store.commit('user/saveCurrentUser', parentStore.state.user.currentUser || {});
-  }
-
+  // vue 创建应用
   instance = createApp(App);
-  instance.provide('parentRouter', parentRouter || router);
-  instance.provide('parentStore', parentStore || store);
+  instance.provide('qiankunSetGlobalState', setGlobalState);
+  instance.provide('parentRouter', parentRouter);
+  instance.provide('parentCloseCurrentHeadTabNav', closeCurrentHeadTabNav);
   instance.use(store);
   instance.use(router);
   instance.use(ElementPlus);
   instance.use(i18n);
   instance.mount(container ? container.querySelector('#app') : '#app');
 
+  // 是否跳转指定默认路由path
   if (data?.defaultPath) {
     router.push(data.defaultPath);
   }
 
   // qiankun.js 全局 state
-  onGlobalStateChange?.((state, prev) => {
+  onGlobalStateChange?.((state, prev) => {   
     // 设置语言
-    if(state.i18nLocale) {
+    if(state.i18nLocale && state.i18nLocale !== prev.i18nLocale) {
       i18n.global.locale.value = state.i18nLocale
+    }
+
+    // 设置用户登录信息
+    if(state.currentUser) {
+      store.commit('user/saveCurrentUser', state.currentUser);
     }
   }, true);
 
 
 }
 
+// 不在qiankun微服务中，独立执行
 if(!window.__POWERED_BY_QIANKUN__){
     render();
 }
 
+// qiankun微服务中 - 生命周期钩子 - 初始化
 export async function bootstrap() {
   console.log('%c%s', 'color: green;', 'article app bootstraped');
 }
 
+// qiankun微服务中 - 生命周期钩子 - 进入
 export async function mount(props: any) {
   console.log('%c%s', 'color: blue;', 'article app mount');
   render(props);
 }
 
+// qiankun微服务中 - 生命周期钩子 - 切出/卸载
 export async function unmount() {
   console.log('%c%s', 'color: red;', 'article app unmount');
-  instance.unmount();
-  instance._container.innerHTML = '';
-  instance = null;
+  if(instance) {
+    instance.unmount();
+    instance._container.innerHTML = '';
+    instance = null;
+  }
   router = null;
-  history.destroy();
+  history?.destroy();
+}
+
+// qiankun微服务中 - 生命周期钩子 - 可选，仅使用 loadMicroApp 方式加载微应用时生效
+export async function update(props) {
+  console.log('%c%s', 'color: yellow;', 'article app update loadMicroApp');
 }
 

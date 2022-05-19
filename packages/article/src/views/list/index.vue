@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+    import { DefineComponent, reactive, ref, watchEffect } from "vue";
+    import { useI18n } from "vue-i18n";
+    import { ElMessage } from "element-plus";
     import IconSvg from "@/components/IconSvg";
     import ALink from '@/components/ALink/index.vue';
     import ScreenTable from '@/components/ScreenTable/index.vue';
@@ -9,9 +12,6 @@
     import { trimComma } from "@/utils/trim";
     import { ResponseData } from '@/utils/request';
     import { queryList, removeData } from "./service";
-    import { ElMessage } from "element-plus";
-    import { useI18n } from "vue-i18n";
-    import { DefineComponent, reactive, ref, watchEffect } from "vue";
 
     const { t } = useI18n();
 
@@ -178,7 +178,7 @@
         <el-table-column
             prop="addtime"
             :label="t('views.article.list.table.column.addtime')"
-            width="140">
+            width="180">
         </el-table-column>
         <el-table-column
             :label="t('views.article.list.table.column.tags')"
@@ -191,14 +191,14 @@
         <el-table-column
             :label="t('views.article.list.table.column.action')"
             prop="action"
-            width="120">
+            width="160">
             <template #default="{row,$index}">
                 <a-link :to="`/edit?id=${row.id}`">
-                 <el-button type="text">{{t('views.article.list.table.column.action.buttion.edit')}}</el-button>
+                 <el-button type="primary" text size="small">{{t('views.article.list.table.column.action.buttion.edit')}}</el-button>
                 </a-link>
                 <el-popconfirm :title="t('views.article.list.table.column.action.buttion.del.popconfirm')" @confirm="handleDelete($index, row)">
                     <template #reference>
-                        <el-button type="text" :loading="row.delLoading" >{{t('views.article.list.table.column.action.buttion.del')}}</el-button>
+                        <el-button type="primary" text  size="small" :loading="row.delLoading" >{{t('views.article.list.table.column.action.buttion.del')}}</el-button>
                     </template>
                 </el-popconfirm>
             </template>

@@ -226,6 +226,7 @@
         ref="tableRef"
         v-loading="tableProp.loading"
         :operation-text="t('views.article.category.table.column.action')"
+        :operation-width="300"
         :column="tableProp.column"
         node-key="id"
         :lazy="true"
@@ -240,13 +241,15 @@
         </template>
         <template #default="{ node, data }">
             <el-button
-                type="text"
+                type="primary"
+                text
                 size="small"
                 @click.stop="showDialog('add', node)">
                 {{t('views.article.category.form.btn.add2')}}
             </el-button>
             <el-button
-                type="text"
+                type="primary"
+                text
                 size="small"
                 @click.stop="showDialog('edit', node)">
                 {{t('views.article.category.form.btn.edit')}}
@@ -259,7 +262,7 @@
             </el-button>  -->
             <el-popconfirm :title="t('views.article.category.form.btn.del.confirm')" @confirm="handleDelete(node)">
                 <template #reference>
-                    <el-button type="text" size="small" :loading="data.delLoading">{{t('views.article.category.form.btn.del')}}</el-button>
+                    <el-button type="primary" text size="small" :loading="data.delLoading" @click.stop>{{t('views.article.category.form.btn.del')}}</el-button>
                 </template>
             </el-popconfirm>
         </template>

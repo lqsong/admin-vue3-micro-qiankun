@@ -1,9 +1,3 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-    name: 'FormDialog',
-})
-</script>
 <script lang="ts" setup>
     import { reactive, ref, computed, defineProps, defineEmits, withDefaults, defineExpose } from "vue";
     import { useI18n } from "vue-i18n";

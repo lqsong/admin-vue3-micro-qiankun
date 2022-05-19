@@ -24,5 +24,13 @@ const currentUser = computed<CurrentUser>(()=> store.state.user.currentUser);
 // 判断是否登录
 const isLogin = computed<boolean>(()=> currentUser.value ? currentUser.value.id > 0 : false);
 
-
+/* 为开发环境设置 */
+if(process.env.NODE_ENV==='development' && store.state.user.currentUser.id < 1) {
+   store.commit('user/saveCurrentUser', {
+     ...store.state.user.currentUser,
+     id: 1,
+     name: 'admin',
+     roles: ['admin']
+   });
+}
 </script>

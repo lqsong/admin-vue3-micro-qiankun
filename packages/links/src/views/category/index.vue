@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-    import IconSvg from "@/components/IconSvg";
     import ScreenTable from '@/components/ScreenTable/index.vue';
     import FormDialog from './components/FormDialog/index.vue';
     import { FormDialogProps } from "./components/FormDialog/data.d";

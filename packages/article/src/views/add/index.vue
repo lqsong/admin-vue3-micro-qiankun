@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+    import { computed, reactive, ref } from "vue";
+    import { useI18n } from "vue-i18n";
+    import { ElForm, ElMessage, ElMessageBox } from "element-plus";
     import PageHeader from '@/components/Custom/PageHeader/index.vue';
     import FormFooterToolbar from '@/components/Custom/FormFooterToolbar/index.vue';
     import ArticleCategoryCascader from "@/components/Custom/ArticleCategoryCascader/index.vue";
@@ -6,20 +9,16 @@
     import ServerImageSelectionList from '@/components/Custom/ServerImage/SelectionList/index.vue';
     import TuiEditor from "@/components/TuiEditor/index.vue";
     import ArticleListDrawer from "@/components/Custom/ArticleListDrawer/index.vue";
+    import useParentMainCloseCurrentHeadTabNav from '@/composables/useParentMainCloseCurrentHeadTabNav';
+    import useRouterPushCombineParentMain from '@/composables/useRouterPushCombineParentMain';
     import { FormItem, ArticleRec } from './data.d';
     import { articleAdd } from './service';
-    import { ElForm, ElMessage, ElMessageBox } from "element-plus";
-    import { useI18n } from "vue-i18n";
-    import { computed, reactive, ref } from "vue";
-    import { useRouter } from 'vue-router';
-    import useRestRouter from '@/composables/useRestRouter';
-    import useRestStore from '@/composables/useRestStore';
-
+    
 
     const { t } = useI18n();
-    const router = useRouter();
-    const restRouter = useRestRouter();
-    const store = useRestStore();
+   
+    const parentMainCloseCurrentHeadTabNav = useParentMainCloseCurrentHeadTabNav();
+    const listJumpFun = useRouterPushCombineParentMain('/list'); // 列表跳转函数
 
     // 表单值
     const modelRef = reactive<FormItem>({
@@ -125,9 +124,9 @@
                   articleRec.list = [];
 
                 }).catch(() => {
-                  store.commit('global/closeCurrentHeadTabNav',() => {
-                    restRouter.push(router.resolve('/list').href)
-                  });
+                  parentMainCloseCurrentHeadTabNav(() => {
+                    listJumpFun()
+                  })
                 });
             }
         } catch (error) {
@@ -254,7 +253,8 @@
                 <template  #default="scope">
                   <el-button
                     @click="articleRec.deleteArticleRow(scope.$index)"
-                    type="text"
+                    type="primary"
+                    text
                     size="small">
                     {{t('views.article.add.articlerec.btn.del')}}
                   </el-button>

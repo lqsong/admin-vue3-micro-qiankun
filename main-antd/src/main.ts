@@ -15,18 +15,16 @@ import router from '@/config/routes';
 import store from '@/config/store';
 import i18n from '@/config/i18n';
 
-import { registerMicroApps, childProjectAll, childProjectEntry, actions } from "../../scripts/server/qiankun";
-
 const app = createApp(App)
-app.provide('childProjectEntry', childProjectEntry);
-app.provide('qiankunActions', actions);
 app.use(store);
 app.use(router)
 app.use(Antd);
 app.use(i18n);
 app.mount('#app');
 
-const Apps = childProjectAll('main-antd',{parentRouter: router, parentStore: store});
+// qiankun设置注册
+import { registerMicroApps, childProjectAll, mainProps } from "@/qiankun";
+const Apps = childProjectAll('main-antd',{ ...mainProps(router, store) });
 registerMicroApps(
   Apps,
   {

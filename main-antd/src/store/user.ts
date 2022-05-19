@@ -3,6 +3,7 @@ import { StoreModuleType } from "@/utils/store";
 import { ResponseData } from '@/utils/request';
 import { queryCurrent, queryMessage } from "@/services/user";
 import { removeToken } from "@/utils/localToken";
+import useQiankunActions from "@/composables/useQiankunActions";
 
 export interface CurrentUser {
   id: number;
@@ -51,6 +52,8 @@ const StoreModel: ModuleType = {
         ...initState.currentUser,
         ...payload,
       }
+      const actions = useQiankunActions();
+      actions.setGlobalState({currentUser: {...state.currentUser}})
     },
     saveMessage(state, payload) {
       state.message = payload;

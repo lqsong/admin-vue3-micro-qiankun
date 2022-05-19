@@ -1,9 +1,3 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-    name: 'FormDialog',
-})
-</script>
 <script lang="ts" setup>
     import RoleSelect from '@/components/Custom/RoleSelect/index.vue';
     import { OptionItem } from '@/components/Custom/RoleSelect/data.d';

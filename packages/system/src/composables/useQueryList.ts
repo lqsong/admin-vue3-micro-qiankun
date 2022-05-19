@@ -1,5 +1,5 @@
 import { computed, onMounted, watch, ComputedRef } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 export interface QueryParams { 
     page: number;
@@ -22,12 +22,11 @@ export interface Response<T> {
  */
  export default function useQueryList<T extends QueryParams>(cb: (queryParams: T, pushQuery: PushQuery<T>) => any): Response<T> {
 
-    const router = useRouter();
-    const route = useRoute();    
+    const router = useRouter();    
 
     // route query参数
     const queryParams = computed<T>(()=> {
-        const { per = 20, page=1 , ...other } = route.query;
+        const { per = 20, page=1 , ...other } = router.currentRoute.value.query;
         return { per: Number(per), page: Number(page), ...other} as T;
     })
 
@@ -37,9 +36,9 @@ export interface Response<T> {
      */
     const pushQuery = (param: Partial<T>): void => {
         router.push({
-            ...route,
+            ...router.currentRoute.value,
             query: {
-                ...route.query,
+                ...router.currentRoute.value.query,
                 ...param
             }
         })

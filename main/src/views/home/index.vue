@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import Spin from '@/components/Spin/index.vue'
-import useInjectMicroChildEntry from '@/composables/useInjectMicroChildEntry'
-import useLoadMicroApp from '@/composables/useLoadMicroApp'
+import useQiankunMicroChildEntry from '@/composables/useQiankunMicroChildEntry'
+import useQiankunLoadMicroApp from '@/composables/useQiankunLoadMicroApp'
 
 const articleChartCardLoading = ref<boolean>(false)
-useLoadMicroApp(
+useQiankunLoadMicroApp(
   {
     name: 'home1',
-    entry: useInjectMicroChildEntry('article'),
+    entry: useQiankunMicroChildEntry('article'),
     container: '#home1',
     data: {
       defaultPath: '/dashboard/analysis/chartcard'
@@ -35,10 +35,10 @@ useLoadMicroApp(
 )
 
 const linksChartCardLoading = ref<boolean>(false)
-useLoadMicroApp(
+useQiankunLoadMicroApp(
   {
     name: 'home2',
-    entry: useInjectMicroChildEntry('links'),
+    entry: useQiankunMicroChildEntry('links'),
     container: '#home2',
     data: {
       defaultPath: '/dashboard/analysis/chartcard'
@@ -65,10 +65,10 @@ useLoadMicroApp(
 )
 
 const articleHitCardLoading = ref<boolean>(false)
-useLoadMicroApp(
+useQiankunLoadMicroApp(
   {
     name: 'home3',
-    entry: useInjectMicroChildEntry('article'),
+    entry: useQiankunMicroChildEntry('article'),
     container: '#home3',
     data: {
       defaultPath: '/dashboard/analysis/hitcard'
@@ -95,10 +95,10 @@ useLoadMicroApp(
 )
 
 const linksHitCardLoading = ref<boolean>(false)
-useLoadMicroApp(
+useQiankunLoadMicroApp(
   {
     name: 'home4',
-    entry: useInjectMicroChildEntry('links'),
+    entry: useQiankunMicroChildEntry('links'),
     container: '#home4',
     data: {
       defaultPath: '/dashboard/analysis/hitcard'

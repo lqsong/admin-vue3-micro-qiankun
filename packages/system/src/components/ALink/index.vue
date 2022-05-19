@@ -19,7 +19,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import useRestRouter from '@/composables/useRestRouter';
+import { useRouter } from 'vue-router';
+import useParentMainRouter from '@/composables/useParentMainRouter';
 import { isExternal } from '@/utils/validate';
 export default defineComponent({
     name: 'ALink',
@@ -38,14 +39,29 @@ export default defineComponent({
         }
     },
     setup(props) {
-      const router = useRestRouter();
+      
+      /*  
+      const router = useRouter();     
       const toLink = (href, navigate) => {
+        const routerBase = router.options.history.base;
+        const newHref = href.replace(routerBase, ""); // 微服务时考虑替换
+        if(props.replace === true) {
+          router.replace(newHref)
+        } else {
+          router.push(newHref)
+        }
+      } 
+      */
+
+      const router = useParentMainRouter() || useRouter(); // 判断是否在主应用中，如果在，用主应用跳转，因为routerBase不是空的，而且主应用tabNav需要
+      const toLink = (href, navigate) => {       
         if(props.replace === true) {
           router.replace(href)
         } else {
           router.push(href)
         }
       }
+
       return {
           isExternal,
           toLink

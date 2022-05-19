@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-    import IconSvg from "@/components/IconSvg";
     import ScreenTable from '@/components/ScreenTable/index.vue';
     import FormDialog from './components/FormDialog/index.vue';
     import { FormDialogProps } from "./components/FormDialog/data.d";
@@ -148,11 +147,11 @@
             prop="action"
             width="180">
             <template #default="{row,$index}">
-                <el-button @click="editFormShow(row)">{{t('views.system.rolelist.table.column.action.buttion.edit')}}</el-button>
+                <el-button type="primary" size="small" text @click="editFormShow(row)">{{t('views.system.rolelist.table.column.action.buttion.edit')}}</el-button>
 
                 <el-popconfirm :title="t('views.system.rolelist.table.column.action.buttion.del.popconfirm')" @confirm="handleDelete($index, row)">
                     <template #reference>
-                        <el-button :loading="row.delLoading" >{{t('views.system.rolelist.table.column.action.buttion.del')}}</el-button>
+                        <el-button type="primary" size="small" text :loading="row.delLoading" >{{t('views.system.rolelist.table.column.action.buttion.del')}}</el-button>
                     </template>
                 </el-popconfirm>
             </template>

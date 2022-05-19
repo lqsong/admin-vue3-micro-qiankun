@@ -1,8 +1,8 @@
- import { ComputedRef, computed, onMounted, watch } from 'vue';
- import { useRoute } from 'vue-router';
- import useRestRouter from '@/composables/useRestRouter';
- import useRestStore from '@/composables/useRestStore';
- import { ElMessage } from "element-plus";
+import { ComputedRef, computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { ElMessage } from "element-plus";
+import useRouterPushCombineParentMain from '@/composables/useRouterPushCombineParentMain';
+import useParentMainCloseCurrentHeadTabNav from '@/composables/useParentMainCloseCurrentHeadTabNav';
 
  /**
   * 返回 route query id，并验证  composables
@@ -11,12 +11,13 @@
   * @returns
   * @author LiQingSong
   */
- export default function useQueryVerifyId(verifyRoutePath: string, cb: (id: number) => any): ComputedRef<number> {
-    const store = useRestStore();
+ export default function useQueryVerifyId(verifyRoutePath: string, cb: (id: number) => any): ComputedRef<number> {    
     const route = useRoute();
-    const restRouter = useRestRouter();
-    const id = computed<number>(() => Number(route.query.id || 0))
 
+    const parentMainCloseCurrentHeadTabNav = useParentMainCloseCurrentHeadTabNav();    
+    const homeJumpFun = useRouterPushCombineParentMain('/'); // 首页跳转函数
+
+    const id = computed<number>(() => Number(route.query.id || 0))
     const verifyId = () => {
       if(route.path !== verifyRoutePath) {
          return false;
@@ -24,9 +25,9 @@
 
       if(id.value < 1) {
         ElMessage({ message: '参数出错', type: 'error' });
-        store.commit('global/closeCurrentHeadTabNav',() => {
-          restRouter.push('/')
-        });
+        parentMainCloseCurrentHeadTabNav(() => {
+          homeJumpFun()// 跳转首页执行
+        })
         return false;
       }
 

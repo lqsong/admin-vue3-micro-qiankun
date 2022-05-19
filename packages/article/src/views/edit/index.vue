@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+    import { computed, reactive, ref } from "vue";
+    import { useI18n } from "vue-i18n";
+    import { ElForm, ElMessage, ElLoading } from "element-plus";
     import PageHeader from '@/components/Custom/PageHeader/index.vue';
     import FormFooterToolbar from '@/components/Custom/FormFooterToolbar/index.vue';
     import ArticleCategoryCascader from "@/components/Custom/ArticleCategoryCascader/index.vue";
@@ -6,22 +9,20 @@
     import ServerImageSelectionList from '@/components/Custom/ServerImage/SelectionList/index.vue';
     import TuiEditor from "@/components/TuiEditor/index.vue";
     import ArticleListDrawer from "@/components/Custom/ArticleListDrawer/index.vue";
+    import useQueryVerifyId from '@/composables/useQueryVerifyId';
+    import useParentMainCloseCurrentHeadTabNav from '@/composables/useParentMainCloseCurrentHeadTabNav';
+    import useRouterPushCombineParentMain from '@/composables/useRouterPushCombineParentMain';
     import { trimComma, trimVerticalBar } from "@/utils/trim";
     import { ResponseData } from '@/utils/request';
     import { articleDetail, articleEdit } from './service';
-    import { computed, reactive, ref } from "vue";
-    import { useI18n } from "vue-i18n";
-    import { ElForm, ElMessage, ElLoading } from "element-plus";
-    import useQueryVerifyId from '@/composables/useQueryVerifyId';
     import { FormItem, ArticleRec } from "./data.d";
-    import { useRouter } from 'vue-router';
-    import useRestRouter from '@/composables/useRestRouter';
-    import useRestStore from '@/composables/useRestStore';
+   
 
     const { t } = useI18n();
-    const router = useRouter();
-    const restRouter = useRestRouter();
-    const store = useRestStore();
+   
+
+    const parentMainCloseCurrentHeadTabNav = useParentMainCloseCurrentHeadTabNav();
+    const listJumpFun = useRouterPushCombineParentMain('/list'); // 列表跳转函数
 
     // 表单值
     const modelRef = reactive<FormItem>({
@@ -149,9 +150,9 @@
                   message: t('views.article.edit.submit.confirm.msg'),
                   type: 'success',
                   onClose: () => {
-                      store.commit('global/closeCurrentHeadTabNav',() => {
-                        restRouter.push(router.resolve('/list').href)
-                      });
+                    parentMainCloseCurrentHeadTabNav(() => {
+                      listJumpFun(); // 跳转列表
+                    })
                   }
                 })
             }
@@ -281,7 +282,8 @@
                 <template  #default="scope">
                   <el-button
                     @click="articleRec.deleteArticleRow(scope.$index)"
-                    type="text"
+                    type="primary"
+                    text
                     size="small">
                     {{t('views.article.edit.articlerec.btn.del')}}
                   </el-button>
