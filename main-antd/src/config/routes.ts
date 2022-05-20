@@ -60,9 +60,13 @@ const router = createRouter({
   routes: routes,
 });
 
-router.beforeEach((/* to, from */) => {
-  // start progress bar
-  NProgress.start();
+router.beforeEach((to, from, next) => {
+  // 此判断[if(to.fullPath!==from.fullPath)]为了防止子应用也是vue-router4导致主应用与子应用路由来回跳转执行
+  if(to.fullPath !== from.fullPath) {
+    // start progress bar
+    NProgress.start();
+    next()
+  }
 });
 
 router.afterEach(() => {

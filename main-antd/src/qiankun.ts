@@ -13,9 +13,9 @@ export interface MainPropsData {
 }
 
 // 主应用需要传递给微应用的数据Props ts类型定义
-export interface MainProps {
-    parentRouter: Router; // 主框架路由
+export interface MainProps {    
     closeCurrentHeadTabNav: (fun: Function) => void; // 关闭主框架tabNav，并调用回调函数
+    parentRouter: Router; // 主框架路由
     routerHistory: string; // 子应用路由类型
     data: MainPropsData;
 }
@@ -29,11 +29,11 @@ export interface MainProps {
  * @returns 
  */
 export const mainProps = <ST>(router: Router, store: Store<ST>, data: MainPropsData = {}, routerHistory = ''): MainProps => {
-    return {
-        parentRouter: router, 
+    return {         
         closeCurrentHeadTabNav: (fun: Function): void => {
             store.commit('global/closeCurrentHeadTabNav',fun);
         },
+        parentRouter: router,
         routerHistory,
         data: {
             defaultPath: '',
