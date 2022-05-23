@@ -4,6 +4,12 @@ import Spin from '@/components/Spin/index.vue'
 import useQiankunMicroChildEntry from '@/composables/useQiankunMicroChildEntry'
 import useQiankunLoadMicroApp from '@/composables/useQiankunLoadMicroApp'
 
+import { useStore } from 'vuex'
+import { StateType as GlobalStateType } from "@/store/global"
+const store = useStore<{global: GlobalStateType;}>()
+store.commit('global/setQiankunViewStyle','none')
+
+
 const articleChartCardLoading = ref<boolean>(false)
 useQiankunLoadMicroApp(
   {

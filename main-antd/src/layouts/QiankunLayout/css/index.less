@@ -365,6 +365,29 @@
         position: relative;
       }
 
+      .qiankunlayout-main-conent-loading {
+        position: absolute;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+      }
+      .qiankunlayout-main-conent-none {
+        display: none;
+      }
+      .qiankunlayout-main-conent-screen {
+        height: calc(100% - 32px);
+        &>div:first-child {
+          height: 100%;
+          #app {
+            height: 100%;
+          }
+        }
+      }
+
+
+
     }
 
 

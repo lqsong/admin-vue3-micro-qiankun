@@ -4,7 +4,8 @@ import { StoreModuleType } from "@/utils/store";
 import { TabNavItem, equalTabNavRoute } from '@/utils/routes';
 import settings, { Theme, NavMode } from '@/config/settings';
 import router from '@/config/routes';
-import { RouteLocationRaw } from 'vue-router';
+
+export type QiankunViewStyle = '' | 'screen' | 'none';
 
 export interface StateType {
   // 左侧展开收起
@@ -23,6 +24,8 @@ export interface StateType {
   leftSiderFixed: boolean;
   // qiankun.js startLoading
   qiankunStartLoading: boolean;
+  // qiankun.js ViewStyle
+  qiankunViewStyle: QiankunViewStyle;
 }
 
 export interface ModuleType extends StoreModuleType<StateType> {
@@ -37,6 +40,7 @@ export interface ModuleType extends StoreModuleType<StateType> {
     closeCurrentHeadTabNav: Mutation<StateType>;
     setLeftSiderFixed: Mutation<StateType>;
     setQiankunStartLoading: Mutation<StateType>;
+    setQiankunViewStyle: Mutation<StateType>;
   };
   actions: {
   };
@@ -57,7 +61,8 @@ const initState: StateType = {
     }
   ],
   leftSiderFixed: settings.leftSiderFixed,
-  qiankunStartLoading: false
+  qiankunStartLoading: false,
+  qiankunViewStyle: 'none',
 };
 
 const StoreModel: ModuleType = {
@@ -104,6 +109,9 @@ const StoreModel: ModuleType = {
     },
     setQiankunStartLoading(state, payload) {
       state.qiankunStartLoading = payload;
+    },
+    setQiankunViewStyle(state, payload: QiankunViewStyle) {
+      state.qiankunViewStyle = payload;
     },
   },
   actions: {}

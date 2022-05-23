@@ -1,27 +1,13 @@
-<template>
-    <div id="qiankunlayout" :class="{'light': theme === 'light'}">
-      <left-sider
-        v-if="navMode==='inline'"
-        :menu-data="menuData"
-        :route-item="routeItem">
-      </left-sider>
-      <div id="qiankunlayout-right">
-        <right-top
-         :menu-data="menuData"
-         :route-item="routeItem"
-         :bread-crumbs="breadCrumbs">
-        </right-top>
-        <div id="qiankunlayout-right-main">
-          <permission :roles="routeItem.roles">
-            <router-view></router-view>
-          </permission>
-          <right-footer></right-footer>
-        </div>
-      </div>
-    </div>
-</template>
+<script lang="ts">
+declare global {
+  interface Window {
+    __QIANKUN_STARTED__: boolean;
+  }
+}
+export default {}
+</script>
 <script lang="ts" setup>
-import { computed } from "vue"
+import { computed, onMounted } from "vue"
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { StateType as GlobalStateType } from '@/store/global'
@@ -32,6 +18,7 @@ import LeftSider from "./components/LeftSider.vue"
 import RightTop from './components/RightTop.vue'
 import RightFooter from './components/RightFooter.vue'
 import LayoutRoutes from './routes'
+import useQiankunStart from "@/composables/useQiankunStart"
 
 const store = useStore<{global: GlobalStateType;}>()
 const route = useRoute()
@@ -57,7 +44,50 @@ const breadCrumbs = computed<BreadcrumbType[]>(() => getBreadcrumbRoutes(route.p
 // 设置title
 useTitle(routeItem);
 
+//qiankun.js loading
+const qiankunStartLoading = computed(()=> store.state.global.qiankunStartLoading)
+const qiankunViewStyle = computed(()=>store.state.global.qiankunViewStyle);
+// qiankun.js  执行start
+onMounted(()=> {
+  if (!window.__QIANKUN_STARTED__) {
+    window.__QIANKUN_STARTED__ = true;
+    useQiankunStart();
+  }
+})
 </script>
+<template>
+    <div id="qiankunlayout" :class="{'light': theme === 'light'}">
+      <left-sider
+        v-if="navMode==='inline'"
+        :menu-data="menuData"
+        :route-item="routeItem">
+      </left-sider>
+      <div id="qiankunlayout-right">
+        <right-top
+         :menu-data="menuData"
+         :route-item="routeItem"
+         :bread-crumbs="breadCrumbs">
+        </right-top>
+        <div id="qiankunlayout-right-main">
+          <permission :roles="routeItem.roles">
+            <div v-if="qiankunStartLoading" class="qiankunlayout-main-conent-loading">
+              <a-spin size="large" />
+            </div>
+            <!-- qiankun subapp-viewport-->
+            <div 
+              id="subapp-viewport" 
+              :class="{
+                'qiankunlayout-main-conent-screen': qiankunViewStyle === 'screen',
+                'qiankunlayout-main-conent-none': qiankunViewStyle === 'none'
+              }">
+            </div>
+            <router-view></router-view>
+          </permission>
+          <right-footer></right-footer>
+        </div>
+      </div>
+    </div>
+</template>
 <style lang="less">
 @import './css/index.less';
 </style>
