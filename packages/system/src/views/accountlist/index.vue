@@ -27,7 +27,7 @@
         }
     })
     // 列表 - 获取数据
-    const { pushQuery, queryParams } =  useQueryList<TableListQueryParams>(async (queryParams, pushQuery): Promise<void> => {
+    const { pushQuery, queryParams } =  useQueryList<TableListQueryParams>('/accountlist', async (queryParams, pushQuery): Promise<void> => {
         tableData.loading = true;
         const response: ResponseData = await queryList(queryParams);
 

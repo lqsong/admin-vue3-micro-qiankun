@@ -16,11 +16,12 @@ export interface Response<T> {
 
 /**
  * 查询列表并根据route监听  composables
+ * @param verifyRoutePath 验证的路由path
  * @param cb 回调函数
  * @returns {跳转函数}
  * @author LiQingSong
  */
- export default function useQueryList<T extends QueryParams>(cb: (queryParams: T, pushQuery: PushQuery<T>) => any): Response<T> {
+ export default function useQueryList<T extends QueryParams>(verifyRoutePath: string, cb: (queryParams: T, pushQuery: PushQuery<T>) => any): Response<T> {
 
     const router = useRouter();    
 
@@ -44,13 +45,20 @@ export interface Response<T> {
         })
     }
      
+
+    const verify = () => {
+        if(router.currentRoute.value.path !== verifyRoutePath) {
+           return false;
+        }
+        cb(queryParams.value, pushQuery)
+    }
  
      watch<T>(queryParams,() => {
-        cb(queryParams.value, pushQuery)
+        verify();
      })
  
      onMounted(()=> {
-        cb(queryParams.value, pushQuery)
+        verify();
      })
 
      return {
