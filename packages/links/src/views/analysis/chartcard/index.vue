@@ -15,13 +15,27 @@
       </a-card>
 </template>
 <script lang="ts" setup>
-import { computed, onMounted, ref, reactive, watch } from "vue";
+import { computed, ref, reactive } from "vue";
 import { useI18n } from "vue-i18n";
 import useEcharts, { EChartsOption } from '@/composables/useEcharts';
-import { LinksChartDataType, ChartDataType } from "./data.d";
+import { LinksChartDataType } from "./data.d";
 import { ResponseData } from '@/utils/request';
 import { annualnewLinks } from "./service";
 
+const { t } = useI18n();
+
+// 数据
+const visitData = reactive<LinksChartDataType>({
+  total: 0,
+  num: 0,
+  chart: {
+    day: [],
+    num: [],
+  }
+});
+
+const loading = ref<boolean>(true);
+// echarts 图表
 const linksChartOption: EChartsOption = {
   tooltip: {
   },
@@ -50,71 +64,48 @@ const linksChartOption: EChartsOption = {
     },
   ],
 };
-
-const { t } = useI18n();
-
-// 数据
-const visitData = reactive<LinksChartDataType>({
-  total: 0,
-  num: 0,
-  chart: {
-    day: [],
-    num: [],
-  }
-});
-
-
-// 读取数据 func
-const loading = ref<boolean>(true);
-const getData = async () => {
-    loading.value = true;
-    const response: ResponseData = await annualnewLinks();
-    const { data } = response;
-    visitData.total = data.total || 0;
-    visitData.num = data.num || 0;
-    visitData.chart = data.chart || {
-      day: [],
-      num: [],
-    }
-    loading.value = false;
-}
-
-onMounted(()=> {
-    getData();
-})
-
-
-// 总数
-const total = computed<number>(() => visitData.total);
-// num
-const num = computed<number>(() => visitData.num);
-// chart Data
-const chartData = computed<ChartDataType>(()=> visitData.chart);
-
-
-
-
-// echarts 图表
 const linksChartRef = ref<HTMLDivElement>();
-const echarts = useEcharts(linksChartRef, linksChartOption);
-watch([echarts, chartData],()=> {
-  if(echarts.value) {
+useEcharts(linksChartRef, linksChartOption, async (chart)=> {
+    try {
+
+      loading.value = true;
+
+      const response: ResponseData = await annualnewLinks();
+      const { data } = response;
+      visitData.total = data.total || 0;
+      visitData.num = data.num || 0;
+      visitData.chart = data.chart || {
+        day: [],
+        num: [],
+      }
+
       const option: EChartsOption = {
         xAxis: {
           // data: ["03-01", "03-01", "03-01", "03-01", "03-01", "03-01", "03-01"]
-          data: chartData.value.day,
+          data: visitData.chart.day,
         },
         series: [
           {
             name: '新增',
             // data: [3, 1, 1, 2, 2, 2, 2]
-            data: chartData.value.num,
+            data: visitData.chart.num,
           },
         ],
       };
-      echarts.value.setOption(option);
-  }
+      chart.setOption(option);
+
+      loading.value = false;
+      
+    } catch (error: any) {
+      console.log(error)
+    }
 });
+
+// 总数
+const total = computed<number>(() => visitData.total);
+// num
+const num = computed<number>(() => visitData.num);
+
 
 </script>
 <style lang="less" scoped>
