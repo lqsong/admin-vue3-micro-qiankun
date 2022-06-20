@@ -22,7 +22,7 @@
     "lodash.debounce": "^4.0.8",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
-    "vue": "^3.2.33",
+    "vue": "^3.2.37",
     "vue-i18n": "^9.1.10",
     "vue-router": "^4.0.15",
     "vuex": "^4.0.2"
