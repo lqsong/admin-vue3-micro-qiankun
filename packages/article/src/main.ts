@@ -59,13 +59,12 @@ function render(props: any = {}) {
     routes,
   });
   router.beforeEach((to, from, next) => {
-    // 此判断[if (typeof window.history.state?.current === 'string' && router)]是因为主应用用的是vue-router4,与子应用vue-router4相互冲突，导致点击浏览器返回按钮，路由错误的问题
-    if (typeof window.history.state?.current === 'string' && router) {
-      window.history.state.current = window.history.state.current.replace(new RegExp(router.options.history.base, 'g'), '')
-    }
-
     // 此判断[if(to.fullPath!==from.fullPath)]为了防止主应用也是vue-router4导致主应用与子应用路由来回跳转执行
-    if(to.fullPath !== from.fullPath) {      
+    if(to.fullPath !== from.fullPath) {   
+      // 此判断[if (typeof window.history.state?.current === 'string' && router)]是因为主应用用的是vue-router4,与子应用vue-router4相互冲突，导致点击浏览器返回按钮，路由错误的问题
+      if (typeof window.history.state?.current === 'string' && router) {
+        window.history.state.current = window.history.state.current.replace(new RegExp(router.options.history.base, 'g'), '')
+      }   
       // start progress bar
       NProgress.start();
       next()
