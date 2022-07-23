@@ -28,6 +28,10 @@
  - electron-admin-antd-react（[GitHub](https://github.com/lqsong/electron-admin-antd-react)、[Gitee](https://gitee.com/lqsong/electron-admin-antd-react)）
  - admin-vue3-micro-qiankun（[GitHub](https://github.com/lqsong/admin-vue3-micro-qiankun)、[Gitee](https://gitee.com/lqsong/admin-vue3-micro-qiankun)）
 
+## 前台前端SSR解决方案列表
+
+ - midway-vue3-ssr（[GitHub](https://github.com/lqsong/midway-vue3-ssr)、[Gitee](https://gitee.com/lqsong/midway-vue3-ssr)）
+
 ## 功能
 
 ```
@@ -54,7 +58,7 @@
   - main-antd主框架（基于admin-antd-vue调整）
   - System子项目（基于admin-element-vue调整）
   - Article子项目（基于admin-element-vue调整）
-  - Links子项目 （基于admin-antd-vue调整） 
+  - Links子项目 （基于admin-antd-vue调整）
 ```
 
 
