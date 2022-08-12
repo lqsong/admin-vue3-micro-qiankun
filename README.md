@@ -54,7 +54,7 @@
   - main-antd主框架（基于admin-antd-vue调整）
   - System子项目（基于admin-element-vue调整）
   - Article子项目（基于admin-element-vue调整）
-  - Links子项目 （基于admin-antd-vue调整） 
+  - Links子项目 （基于admin-antd-vue调整）
 ```
 
 
@@ -112,6 +112,11 @@ server {
 }
 
 ```
+
+## 运行环境建议
+
+- Nodejs 14
+- pnpm 6
 
 
 ## 捐赠
