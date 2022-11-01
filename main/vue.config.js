@@ -3,8 +3,11 @@ const { stringified } = require('../scripts/server/env');
 const bodyParser = require('body-parser')
 const mockServer = require('./src/utils/mock/server');
 const { NODE_ENV, VUE_APP_PORT, VUE_APP_MOCK } = process.env;
+
+const  publicPath =  process.env.MICRO_PUBLIC_PATH;
+
 module.exports = {
-    publicPath: '/',
+    publicPath,
     outputDir: 'dist',
     productionSourceMap: false,
     devServer: {
@@ -71,6 +74,21 @@ module.exports = {
         .options({
             // externalConfig 配置特殊不是相对路径，起始路径是根目录
             externalConfig: './src/assets/iconsvg/svgo.yml',
+        });
+
+        // 针对图片修改publicPath
+        config.module
+        .rule('images')
+        .use('url-loader')
+        .loader('url-loader')
+        .options({
+          limit: 4096, // 小于4kb将会被打包成 base64
+          fallback: {
+            loader: 'file-loader',
+            options: {
+              publicPath
+            },
+          },
         });
 
         // 添加自定义环境变量

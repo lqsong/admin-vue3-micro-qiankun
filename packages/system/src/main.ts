@@ -42,13 +42,13 @@ let instance: InstanceApp | null = null;
 let history: RouterHistory | null = null;
 // 创建vue应用函数
 function render(props: any = {}) {
-  const { 
-    container, onGlobalStateChange, setGlobalState, routerBase, 
-    parentRouter, closeCurrentHeadTabNav, routerHistory, data 
+  const {
+    container, onGlobalStateChange, setGlobalState, routerBase,
+    parentRouter, closeCurrentHeadTabNav, routerHistory, data
   } = props;
 
   // vue 路由设置
-  const historyBase = routerBase || process.env.BASE_URL;
+  const historyBase = routerBase || process.env.MICRO_PUBLIC_PATH;
   if (routerHistory === 'memory') {
     history = createMemoryHistory(historyBase);
   } else {
@@ -58,13 +58,15 @@ function render(props: any = {}) {
     history,
     routes,
   });
+  console.log('system', historyBase, router, history)
   router.beforeEach((to, from, next) => {
     // 此判断[if(to.fullPath!==from.fullPath)]为了防止主应用也是vue-router4导致主应用与子应用路由来回跳转执行
-    if(to.fullPath !== from.fullPath) {  
+    if(to.fullPath !== from.fullPath) {
       // 此判断[if (typeof window.history.state?.current === 'string' && router)]是因为主应用用的是vue-router4,与子应用vue-router4相互冲突，导致点击浏览器返回按钮，路由错误的问题
       if (typeof window.history.state?.current === 'string' && router) {
-        window.history.state.current = window.history.state.current.replace(new RegExp(router.options.history.base, 'g'), '')
-      }    
+        const url = process.env.MICRO_PUBLIC_PATH + window.history.state.current.substring(1);
+        window.history.state.current = url.replace(new RegExp(router.options.history.base, 'g'), '')
+      }
       // start progress bar
       NProgress.start();
       next()
@@ -73,7 +75,8 @@ function render(props: any = {}) {
   router.afterEach(() => {
     // 此判断[if (typeof window.history.state?.current === 'string' && router)]是因为主应用用的是vue-router4,与子应用vue-router4相互冲突，导致点击浏览器返回按钮，路由错误的问题
     if (typeof window.history.state === 'object' && router) {
-      window.history.state.current = router.options.history.base +  (window.history.state.current || '')
+      const url = router.options.history.base +  (window.history.state.current || '');
+      window.history.state.current = `/${url.substring(process.env.MICRO_PUBLIC_PATH.length)}`
     }
 
     // finish progress bar

@@ -5,10 +5,10 @@ const { NODE_ENV, VUE_APP_PORT, VUE_APP_MOCK } = process.env;
 const port = process.env.MICRO_LINKS_PORT ||VUE_APP_PORT || 8078;
 const packageName = process.env.MICRO_LINKS_ROOT_DIR || 'links';
 
-let publicPath = `//${process.env.MICRO_LINKS_HOST}:${port}`;
-let vuePublicPath = '/'
+let publicPath = `//${process.env.MICRO_LINKS_HOST}:${port}${process.env.MICRO_PUBLIC_PATH}`;
+let vuePublicPath = process.env.MICRO_PUBLIC_PATH
 if(process.env.NODE_ENV === 'production') {
-  vuePublicPath = publicPath = `/${process.env.MICRO_BUILD_CHILD_NAME}/${packageName}/`;
+  vuePublicPath = publicPath = `${process.env.MICRO_PUBLIC_PATH}${process.env.MICRO_BUILD_CHILD_NAME}/${packageName}/`;
 }
 
 const bodyParser = require('body-parser')

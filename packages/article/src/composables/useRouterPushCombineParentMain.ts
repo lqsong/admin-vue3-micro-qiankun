@@ -21,14 +21,18 @@ export declare type RouteLocationRawRest = string | (RouteQueryAndHash & Matcher
     }
 
     // 在主框架中调用
-    const routerBase = router.options.history.base;
-    let newTo: RouteLocationRawRest = to;
-    if(typeof newTo === 'string') {
-        newTo =  routerBase + to
-    } else {
-        newTo.path = routerBase + newTo.path;
-    }
+    return ()=> {
+      const baseLen = pRouter.options.history.base.length;
+      const pHref = router.resolve(to).href.substring(baseLen);
 
-    return ()=> pRouter.push(newTo)
+      let newTo: RouteLocationRawRest = to;
+      if(typeof newTo === 'string') {
+          newTo =  pHref
+      } else {
+          newTo.path = pHref;
+      }
+
+      return pRouter.push(newTo)
+    }
 
  }

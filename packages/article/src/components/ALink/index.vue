@@ -39,27 +39,27 @@ export default defineComponent({
         }
     },
     setup(props) {
-      
-      /*  
-      const router = useRouter();     
-      const toLink = (href, navigate) => {
-        const routerBase = router.options.history.base;
-        const newHref = href.replace(routerBase, ""); // 微服务时考虑替换
-        if(props.replace === true) {
-          router.replace(newHref)
-        } else {
-          router.push(newHref)
-        }
-      } 
-      */
 
-      const router = useParentMainRouter() || useRouter(); // 判断是否在主应用中，如果在，用主应用跳转，因为routerBase不是空的，而且主应用tabNav需要
-      const toLink = (href, navigate) => {       
-        if(props.replace === true) {
-          router.replace(href)
+      const pRouter = useParentMainRouter(); // 主框架路由
+      const router = useRouter(); // 当前子框架路由
+      const toLink = (href, navigate) => {
+        if(pRouter){
+          // 判断在主应用中，如果在，用主应用跳转，主应用tabNav需要
+          const baseLen = pRouter.options.history.base.length;
+          const pHref = href.substring(baseLen);
+          if(props.replace === true) {
+            pRouter.replace(pHref)
+          } else {
+            pRouter.push(pHref)
+          }
         } else {
-          router.push(href)
+          if(props.replace === true) {
+            router.replace(href)
+          } else {
+            router.push(href)
+          }
         }
+
       }
 
       return {

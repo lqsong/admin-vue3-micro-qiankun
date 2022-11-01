@@ -56,7 +56,7 @@ const router = createRouter({
   scrollBehavior(/* to, from, savedPosition */) {
     return { top: 0 }
   },
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.MICRO_PUBLIC_PATH),
   routes: routes,
 });
 

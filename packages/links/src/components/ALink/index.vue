@@ -1,21 +1,21 @@
 <template>
-    <a v-if="isExternal(to)" :href="to" target="_blank" rel="noreferrer">
+  <a v-if="isExternal(to)" :href="to" target="_blank" rel="noreferrer">
+    <slot></slot>
+  </a>
+  <router-link
+    v-else
+    :to="to"
+    custom
+    v-slot="{ href,  navigate }"
+  >
+    <a v-if="target==='_blank'" :href="href" :target="target">
+     <slot></slot>
+    </a>
+    <a v-else :href="href" @click.prevent="toLink(href, navigate)">
       <slot></slot>
     </a>
-    <router-link
-      v-else
-      :to="to"
-      custom
-      v-slot="{ href,  navigate }"
-    >
-      <a v-if="target==='_blank'" :href="href" :target="target">
-       <slot></slot>
-      </a>
-      <a v-else :href="href" @click.prevent="toLink(href, navigate)">
-        <slot></slot>
-      </a>
 
-    </router-link>
+  </router-link>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -23,38 +23,36 @@ import { useRouter } from 'vue-router';
 import useParentMainRouter from '@/composables/useParentMainRouter';
 import { isExternal } from '@/utils/validate';
 export default defineComponent({
-    name: 'ALink',
-    props: {
-        target: {
+  name: 'ALink',
+  props: {
+      target: {
+        type: String,
+        default: '_self'
+      },
+      to: {
           type: String,
-          default: '_self'
-        },
-        to: {
-            type: String,
-            required: true
-        },
-        replace: {
-            type: Boolean,
-            default: false
-        }
-    },
-    setup(props) {
-      
-      /*  
-      const router = useRouter();     
-      const toLink = (href, navigate) => {
-        const routerBase = router.options.history.base;
-        const newHref = href.replace(routerBase, ""); // 微服务时考虑替换
-        if(props.replace === true) {
-          router.replace(newHref)
-        } else {
-          router.push(newHref)
-        }
-      } 
-      */
+          required: true
+      },
+      replace: {
+          type: Boolean,
+          default: false
+      }
+  },
+  setup(props) {
 
-      const router = useParentMainRouter() || useRouter(); // 判断是否在主应用中，如果在，用主应用跳转，因为routerBase不是空的，而且主应用tabNav需要
-      const toLink = (href, navigate) => {       
+    const pRouter = useParentMainRouter(); // 主框架路由
+    const router = useRouter(); // 当前子框架路由
+    const toLink = (href, navigate) => {
+      if(pRouter){
+        // 判断在主应用中，如果在，用主应用跳转，主应用tabNav需要
+        const baseLen = pRouter.options.history.base.length;
+        const pHref = href.substring(baseLen);
+        if(props.replace === true) {
+          pRouter.replace(pHref)
+        } else {
+          pRouter.push(pHref)
+        }
+      } else {
         if(props.replace === true) {
           router.replace(href)
         } else {
@@ -62,10 +60,12 @@ export default defineComponent({
         }
       }
 
-      return {
-          isExternal,
-          toLink
-      }
     }
+
+    return {
+        isExternal,
+        toLink
+    }
+  }
 })
 </script>
