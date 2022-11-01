@@ -75,7 +75,7 @@ function render(props: any = {}) {
     // 此判断[if (typeof window.history.state?.current === 'string' && router)]是因为主应用用的是vue-router4,与子应用vue-router4相互冲突，导致点击浏览器返回按钮，路由错误的问题
     if (typeof window.history.state === 'object' && router) {
       const url = router.options.history.base +  (window.history.state.current || '');
-      window.history.state.current = `/${url.substring(process.env.MICRO_PUBLIC_PATH.length)}`
+      window.history.state.current = `/${url.substring(process.env.MICRO_PUBLIC_PATH ? process.env.MICRO_PUBLIC_PATH.length : 1)}`
     }
 
     // finish progress bar
