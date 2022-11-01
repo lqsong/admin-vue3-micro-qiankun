@@ -31,6 +31,8 @@
 ## 前台前端SSR解决方案列表
 
  - midway-vue3-ssr（[GitHub](https://github.com/lqsong/midway-vue3-ssr)、[Gitee](https://gitee.com/lqsong/midway-vue3-ssr)）
+ - midway-react-ssr（[GitHub](https://github.com/lqsong/midway-react-ssr)、[Gitee](https://gitee.com/lqsong/midway-react-ssr)）
+
 
 ## 功能
 
@@ -96,7 +98,9 @@ pnpm run build
 
 2、上传到服务器，以`nginx`配置为例：
 
+
 ```sh
+# env文件中 MICRO_PUBLIC_PATH=/ 时：
 server {
   listen       8080;
   server_name  localhost;
@@ -116,6 +120,85 @@ server {
 }
 
 ```
+
+
+```sh
+# env文件中 MICRO_PUBLIC_PATH=/admin/ 时：
+server {
+  listen       8080;
+  server_name  localhost;
+
+  location /admin/ {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /admin/index.html;
+  }
+
+  location /admin/child/system {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /admin/child/system/index.html;
+  }
+
+  # article 和 links 等其他子模块的history 配置同上 如下：
+
+  location /admin/child/article {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /admin/child/article/index.html;
+  }
+
+  location /admin/child/links {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /admin/child/links/index.html;
+  }
+
+
+
+}
+
+```
+
+
+```sh
+# env文件中 MICRO_PUBLIC_PATH=/xxxxxx/ 时：
+server {
+  listen       8080;
+  server_name  localhost;
+
+  location /xxxxxx/ {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /xxxxxx/index.html;
+  }
+
+  location /xxxxxx/child/system {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /xxxxxx/child/system/index.html;
+  }
+
+  # article 和 links 等其他子模块的history 配置同上 如下：
+
+  location /xxxxxx/child/article {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /xxxxxx/child/article/index.html;
+  }
+
+  location /xxxxxx/child/links {
+    # root   html;
+    # index  index.html index.htm;
+    try_files $uri $uri/ /xxxxxx/child/links/index.html;
+  }
+
+
+
+}
+
+```
+
 
 ## 运行环境建议
 
