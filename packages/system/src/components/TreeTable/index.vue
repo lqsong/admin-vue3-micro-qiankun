@@ -5,7 +5,7 @@
  */
 import { ColumnItem } from './data.d';
 import debounce from "lodash.debounce";
-import { ElTree } from "element-plus";
+import { ElTree, useGlobalConfig } from "element-plus";
 import { getScrollBarWidth } from 'element-plus/lib/utils/dom/scroll';
 import { TreeData, TreeOptionProps, LoadFunction, TreeKey } from 'element-plus/es/components/tree/src/tree.type';
 import Node from "element-plus/es/components/tree/src/model/node";
@@ -158,10 +158,12 @@ export default defineComponent({
 
         return restColum;
     })
+
+    const elementPlusGlobalConfig = useGlobalConfig();
     // treeTable mainBox 是否有滚动条
     const treeTableMainIsScroll = computed<boolean>(() => treeTable.mainIsScroll);
     // treeTable mainBox 滚动条宽度
-    const treeTableMainScrollbarWidth = computed<number>(()=> getScrollBarWidth() + 1);
+    const treeTableMainScrollbarWidth = computed<number>(()=> getScrollBarWidth(elementPlusGlobalConfig.value.namespace || '') + 1);
 
     // 设置tree mainBox 是否有滚动条
     const setTreeTableMainIsScroll = () => {
