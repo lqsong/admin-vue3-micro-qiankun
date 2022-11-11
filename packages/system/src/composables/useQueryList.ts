@@ -1,7 +1,8 @@
 import { computed, onMounted, watch, ComputedRef } from 'vue';
 import { useRouter } from 'vue-router';
+import useParentMainRouter from '@/composables/useParentMainRouter';
 
-export interface QueryParams { 
+export interface QueryParams {
     page: number;
     per: number;
 }
@@ -12,7 +13,7 @@ export interface Response<T> {
     queryParams: ComputedRef<T>;
     pushQuery: PushQuery<T>;
 }
- 
+
 
 /**
  * 查询列表并根据route监听  composables
@@ -22,8 +23,8 @@ export interface Response<T> {
  * @author LiQingSong
  */
  export default function useQueryList<T extends QueryParams>(verifyRoutePath: string, cb: (queryParams: T, pushQuery: PushQuery<T>) => any): Response<T> {
-
-    const router = useRouter();    
+    const pRouter = useParentMainRouter();
+    const router = useRouter();
 
     // route query参数
     const queryParams = computed<T>(()=> {
@@ -32,10 +33,12 @@ export interface Response<T> {
     })
 
     /**
-     * query跳转 
+     * query跳转
      * @param param 需要调转的参数，比如页码
      */
     const pushQuery = (param: Partial<T>): void => {
+      if(!pRouter) {
+        // 不在(不存在)主框架中调用
         router.push({
             ...router.currentRoute.value,
             query: {
@@ -43,8 +46,19 @@ export interface Response<T> {
                 ...param
             }
         })
+      } else {
+        const baseLen = pRouter.options.history.base.length;
+        const pHref = router.resolve({
+            ...router.currentRoute.value,
+            query: {
+                ...router.currentRoute.value.query,
+                ...param
+            }
+        }).href.substring(baseLen);
+        pRouter.push(pHref)
+      }
     }
-     
+
 
     const verify = () => {
         if(router.currentRoute.value.path !== verifyRoutePath) {
@@ -52,11 +66,11 @@ export interface Response<T> {
         }
         cb(queryParams.value, pushQuery)
     }
- 
+
      watch<T>(queryParams,() => {
         verify();
      })
- 
+
      onMounted(()=> {
         verify();
      })
@@ -65,5 +79,5 @@ export interface Response<T> {
         queryParams,
         pushQuery
      }
- 
+
  }
