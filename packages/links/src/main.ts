@@ -59,24 +59,32 @@ function render(props: any = {}) {
     // 此判断[if(to.fullPath!==from.fullPath)]为了防止主应用也是vue-router4导致主应用与子应用路由来回跳转执行
     if(to.fullPath !== from.fullPath) {
       // 此判断[if (typeof window.history.state?.current === 'string' && router)]是因为主应用用的是vue-router4,与子应用vue-router4相互冲突，导致点击浏览器返回按钮，路由错误的问题
-      if (typeof window.history.state?.current === 'string' && router) {
+      // 在追加一个 routerHistory !== 'memory' ，因为memory模式是不启用window.history的所以不需要修改，如果修改，一个页面引入多个memory模式的页面（如首页加载多个模块）反而出错
+      if (typeof window.history.state?.current === 'string' && router && routerHistory !== 'memory') {
         const url = process.env.MICRO_PUBLIC_PATH + window.history.state.current.substring(1);
-        window.history.state.current = url.replace(new RegExp(router.options.history.base, 'g'), '')
+        window.history.state.current = url.replace(new RegExp(router.options.history.base, 'g'), '');
       }
-      // start progress bar
-      NProgress.start();
+
+      if(routerHistory !== 'memory') {
+        // start progress bar
+        NProgress.start();
+      }
+
       next()
     }
   });
   router.afterEach(() => {
     // 此判断[if (typeof window.history.state?.current === 'string' && router)]是因为主应用用的是vue-router4,与子应用vue-router4相互冲突，导致点击浏览器返回按钮，路由错误的问题
-    if (typeof window.history.state === 'object' && router) {
+    // 在追加一个 routerHistory !== 'memory' ，因为memory模式是不启用window.history的所以不需要修改，如果修改，一个页面引入多个memory模式的页面（如首页加载多个模块）反而出错
+    if (typeof window.history.state === 'object' && router  && routerHistory !== 'memory') {
       const url = router.options.history.base +  (window.history.state.current || '');
       window.history.state.current = `/${url.substring(process.env.MICRO_PUBLIC_PATH ? process.env.MICRO_PUBLIC_PATH.length : 1)}`
     }
 
-    // finish progress bar
-    NProgress.done();
+    if(routerHistory !== 'memory') {
+      // finish progress bar
+      NProgress.done();
+    }
   });
 
   // vue 创建应用
